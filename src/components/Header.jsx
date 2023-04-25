@@ -1,4 +1,5 @@
-export default function Header() {
+export default function Header(props) {
+      console.log('numeros', props.numeros);
       return (
             <h1 className="font-black text-5xl text-center md:w-2/3 mx-auto">
                   Seguimiento pacientes {""}
