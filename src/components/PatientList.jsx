@@ -12,14 +12,20 @@ export default function PatientList({ patients, deletePatient }) {
                   </p>
 
                   {
+                        patients.length === 0 ?
+                              (
+                                    <div className="bg-gray-950 border-l-4 border-green-900 text-yellow-500 p-4 rounded mb-7">
+                                          Aun no hay pacientes
+                                    </div>
+                              )
 
-                        patients.map(patient => (
-                              <Patients
-                                    patient={patient}
-                                    key={patient.id}
-                                    deletePatient={deletePatient}
-                              />
-                        ))
+                              : patients.map(patient => (
+                                    <Patients
+                                          patient={patient}
+                                          key={patient.id}
+                                          deletePatient={deletePatient}
+                                    />
+                              ))
 
                   }
 
