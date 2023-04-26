@@ -8,6 +8,11 @@ import { useState } from 'react'
 function App() {
   const [patients, setPatients] = useState([]);
 
+  const deletePatient = (id) => {
+    const availablePatients = patients.filter((index) => index.id !== id);
+    setPatients(availablePatients);
+  }
+
   return (
     <div className='container mx-auto mt-20'>
       <Header />
@@ -20,6 +25,7 @@ function App() {
 
         <PatientList
           patients={patients}
+          deletePatient={deletePatient}
         />
       </div>
 

@@ -7,16 +7,22 @@ export default function Form({ patients, setPatients }) {
       const [email, setEmail] = useState('');
       const [date, setDate] = useState('');
       const [symptoms, setSymptoms] = useState('');
-
       const [error, setError] = useState(false);
 
-      // Reiniciar formulario
+      // Reset formulario
       const handleClearForm = () => {
             setPet('')
             setOwner('')
             setEmail('')
             setDate('')
             setSymptoms('')
+      }
+
+      // Generar un uuid para cada paciente
+      const generateId = () => {
+            let timestamp = Date.now().toString(36);
+            let randomChars = Math.random().toString(36).substring(2, 8);
+            return timestamp + randomChars;
       }
 
       function handleSubmit(e) {
@@ -28,6 +34,7 @@ export default function Form({ patients, setPatients }) {
             setError(false)
 
             const objPatients = {
+                  id: generateId(),
                   pet,
                   owner,
                   email,
