@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Form() {
+export default function Form({ patients, setPatients }) {
 
       const [pet, setPet] = useState('');
       const [owner, setOwner] = useState('');
@@ -10,6 +10,7 @@ export default function Form() {
 
       const [error, setError] = useState(false);
 
+      // Reiniciar formulario
       const handleClearForm = () => {
             setPet('')
             setOwner('')
@@ -23,10 +24,22 @@ export default function Form() {
             if ([pet, owner, email, date, symptoms].includes('')) {
                   setError(true);
                   return;
-            } else {
-                  setError(false);
-                  handleClearForm();
             }
+            setError(false)
+
+            const objPatients = {
+                  pet,
+                  owner,
+                  email,
+                  date,
+                  symptoms
+            }
+
+            setPatients([...patients, objPatients]);
+
+            handleClearForm();
+
+
       }
 
       return (
