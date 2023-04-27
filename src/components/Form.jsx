@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Form({ patients, setPatients, patient }) {
+export default function Form({ patients, setPatients, patient, setPatient }) {
 
       const [pet, setPet] = useState('');
       const [owner, setOwner] = useState('');
@@ -16,8 +16,6 @@ export default function Form({ patients, setPatients, patient }) {
                   setEmail(patient.email);
                   setDate(patient.date);
                   setSymptoms(patient.symptoms);
-            } else {
-                  console.log('No se esta enviando nada')
             }
       }, [patient])
 
@@ -40,6 +38,7 @@ export default function Form({ patients, setPatients, patient }) {
 
       function handleSubmit(e) {
             e.preventDefault();
+
             if ([pet, owner, email, date, symptoms].includes('')) {
                   setError(true);
                   return;
@@ -57,13 +56,12 @@ export default function Form({ patients, setPatients, patient }) {
             if (patient.id) {
                   // Editando registro
                   objPatients.id = patient.id;
-                  console.log('objPatients', objPatients);
-                  console.log('patient', patient);
 
                   const editedPatient = patients.map(patientState =>
                         patientState.id === patient.id ? objPatients : patientState);
 
                   setPatients(editedPatient);
+                  setPatient({});
 
 
             } else {
@@ -71,7 +69,6 @@ export default function Form({ patients, setPatients, patient }) {
                   objPatients.id = generateId();
                   setPatients([...patients, objPatients]);
             }
-
             handleClearForm();
       }
 

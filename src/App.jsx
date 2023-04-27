@@ -13,7 +13,6 @@ function App() {
 
 
   const updatePatients = (data) => {
-    console.log('data paciente', data);
     setPatient(data);
   }
 
@@ -32,6 +31,7 @@ function App() {
           patients={patients}
           setPatients={setPatients}
           patient={patient}
+          setPatient={setPatient}
 
         />
 
