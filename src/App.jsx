@@ -2,15 +2,18 @@ import './App.css'
 import Header from './components/Header'
 import Form from './components/Form'
 import PatientList from './components/PatientList'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { saveLocalStorage } from './helpers/storage'
-
-
+import Footer from './components/Footer'
 
 function App() {
   const [patients, setPatients] = useState([]);
 
   const [patient, setPatient] = useState({});
+
+  useEffect(() => {
+    saveLocalStorage(patients);
+  }, [patients])
 
   const updatePatients = (data) => {
     setPatient(data);
@@ -20,8 +23,6 @@ function App() {
     const availablePatients = patients.filter((index) => index.id !== id);
     setPatients(availablePatients);
   }
-
-  saveLocalStorage(patients);
 
 
 
@@ -44,6 +45,8 @@ function App() {
           updatePatients={updatePatients}
         />
       </div>
+
+      <Footer />
 
     </div>
   )

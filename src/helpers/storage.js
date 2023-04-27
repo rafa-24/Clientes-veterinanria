@@ -6,11 +6,4 @@ export const saveLocalStorage = (arr) => {
 }
 
 
-export const getDataLocalStorage = (key) => {
-      let storedData = localStorage.getItem(key);
-      let arrRecovered = JSON.parse(storedData);
-      console.log(arrRecovered);
-}
-
-
 
