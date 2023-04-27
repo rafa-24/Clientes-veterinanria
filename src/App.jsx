@@ -8,6 +8,16 @@ import { useState } from 'react'
 function App() {
   const [patients, setPatients] = useState([]);
 
+  const [patient, setPatient] = useState({});
+
+
+
+  const updatePatients = (data) => {
+    console.log('data paciente', data);
+    setPatient(data);
+  }
+
+
   const deletePatient = (id) => {
     const availablePatients = patients.filter((index) => index.id !== id);
     setPatients(availablePatients);
@@ -21,11 +31,14 @@ function App() {
         <Form
           patients={patients}
           setPatients={setPatients}
+          patient={patient}
+
         />
 
         <PatientList
           patients={patients}
           deletePatient={deletePatient}
+          updatePatients={updatePatients}
         />
       </div>
 

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Form({ patients, setPatients }) {
+export default function Form({ patients, setPatients, patient }) {
 
       const [pet, setPet] = useState('');
       const [owner, setOwner] = useState('');
@@ -8,6 +8,19 @@ export default function Form({ patients, setPatients }) {
       const [date, setDate] = useState('');
       const [symptoms, setSymptoms] = useState('');
       const [error, setError] = useState(false);
+
+      useEffect(() => {
+            if (Object.keys(patient).length > 0) {
+                  setPet(patient.pet);
+                  setOwner(patient.owner);
+                  setEmail(patient.email);
+                  setDate(patient.date);
+                  setSymptoms(patient.symptoms);
+            } else {
+                  console.log('No se esta enviando nada')
+            }
+      }, [patient])
+
 
       // Reset formulario
       const handleClearForm = () => {
@@ -34,7 +47,6 @@ export default function Form({ patients, setPatients }) {
             setError(false)
 
             const objPatients = {
-                  id: generateId(),
                   pet,
                   owner,
                   email,
@@ -42,11 +54,25 @@ export default function Form({ patients, setPatients }) {
                   symptoms
             }
 
-            setPatients([...patients, objPatients]);
+            if (patient.id) {
+                  // Editando registro
+                  objPatients.id = patient.id;
+                  console.log('objPatients', objPatients);
+                  console.log('patient', patient);
+
+                  const editedPatient = patients.map(patientState =>
+                        patientState.id === patient.id ? objPatients : patientState);
+
+                  setPatients(editedPatient);
+
+
+            } else {
+                  // Creando nuevo registro
+                  objPatients.id = generateId();
+                  setPatients([...patients, objPatients]);
+            }
 
             handleClearForm();
-
-
       }
 
       return (
@@ -143,7 +169,7 @@ export default function Form({ patients, setPatients }) {
 
                         <input
                               type="submit"
-                              value="Enviar"
+                              value={patient.id ? 'Editar registro' : 'Enviar registro'}
                               className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md w-full placeholder-indigo-400  "
                         />
                   </form>

@@ -1,6 +1,7 @@
 import Patients from "./Patients"
 
-export default function PatientList({ patients, deletePatient }) {
+
+export default function PatientList({ patients, deletePatient, updatePatients }) {
 
       return (
             <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-scroll">
@@ -24,6 +25,7 @@ export default function PatientList({ patients, deletePatient }) {
                                           patient={patient}
                                           key={patient.id}
                                           deletePatient={deletePatient}
+                                          updatePatients={updatePatients}
                                     />
                               ))
 
